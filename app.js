@@ -31,3 +31,10 @@ app.post('/email_post',function(req, res){
     //res.send(hello);
     res.render('email.ejs', {'email' : req.body.email});
 })
+
+app.post('/ajax_send_email', function(req,res){
+    console.log(req.body.email);
+    //check validation about input -> select db
+    let responseData = {'result' : 'ok', 'email' : req.body.email}
+    res.json(responseData);
+})
