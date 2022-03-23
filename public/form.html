@@ -29,8 +29,10 @@
             xhr.send(senddata);
             xhr.addEventListener('load', function(){
                 let result = JSON.parse(xhr.responseText);
-                if(result.result !== "ok") return;
-                document.querySelector(".result").innerHTML = result.email;
+                let resultDiv = document.querySelector(".result");
+                if(result.result !== "ok")
+                    resultDiv.innerHTML = "email not found";
+                else resultDiv.innerHTML = result.name;
             });
         }
     </script>

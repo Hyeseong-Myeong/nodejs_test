@@ -1,6 +1,16 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
+const mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host:'localhost',
+    port: 3306,
+    user: 'root',
+    password: '_input_your_password_',
+    database: 'nodejs_prtc'
+});
+connection.connect();
 
 //start server
 app.listen(3000, function(){
@@ -35,6 +45,18 @@ app.post('/email_post',function(req, res){
 app.post('/ajax_send_email', function(req,res){
     console.log(req.body.email);
     //check validation about input -> select db
-    let responseData = {'result' : 'ok', 'email' : req.body.email}
-    res.json(responseData);
+    let email = req.body.email;
+    let responseData = {};
+
+    let query = connection.query('select name from user where email="' + email + '"', function(err, rows){
+        if(err) throw err;
+        if(rows[0]){
+            responseData.result = "ok";
+            responseData.name = rows[0].name;
+        }else {
+            responseData.result = "none";
+            responseData.name = "";        
+        }
+        res.json(responseData);
+    })
 })
