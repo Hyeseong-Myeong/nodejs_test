@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
-const main = require('./router/main');
-const email = require('./router/email');
+const router = require('./router/index');
+
 
 //start server
 app.listen(3000, function(){
@@ -17,11 +17,4 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine', 'ejs');
 
 //router module
-app.use('/main', main);
-app.use('/email', email);
-//url routing
-app.get('/', function(req, res){
-    res.sendFile(__dirname + "/public/main.html");
-})
-
-
+app.use(router);
