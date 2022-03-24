@@ -3,15 +3,9 @@ const app = express();
 const mysql = require('mysql');
 const router = express.Router();
 const path = require('path');
+const connection = require('../../config/config');
 
 //DB setting
-var connection = mysql.createConnection({
-    host:'localhost',
-    port: 3306,
-    user: 'root',
-    //git commit 전 수정 필수
-    database: 'nodejs_prtc'
-});
 connection.connect();
 
 //router
