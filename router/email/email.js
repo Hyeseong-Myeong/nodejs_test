@@ -3,10 +3,9 @@ const app = express();
 const mysql = require('mysql');
 const router = express.Router();
 const path = require('path');
-const connection = require('../../config/config');
-
-//DB setting
-connection.connect();
+var config = require('../../config/config');
+//db config info separation
+var connection = mysql.createConnection(config.databaseOptions);
 
 //router
 router.post('/form',function(req, res){
